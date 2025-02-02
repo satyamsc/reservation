@@ -1,6 +1,9 @@
+
+
 provider "aws" {
   region = "eu-central-1"
 }
+
 
 # IAM Role for Lambda (unchanged)
 resource "aws_iam_role" "lambda_role" {
@@ -47,6 +50,7 @@ resource "aws_lambda_function" "park_lambda" {
   handler       = "com.parkhere.reservation.StreamLambdaHandler::handleRequest"
   runtime       = "java17"
   timeout       = 10
+   source_code_hash = filebase64sha256("../target/reservation-1.0-SNAPSHOT-lambda-package.zip")
 }
 
 # API Gateway (updated)

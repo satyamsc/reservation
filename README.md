@@ -1,82 +1,41 @@
-# reservation serverless API
-The reservation project, created with [`aws-serverless-java-container`](https://github.com/aws/serverless-java-container).
+# config-service serverless API
 
-The starter project defines a simple `/ping` resource that can accept `GET` requests with its tests.
+This is a serverless API that provides a reservation service. It is built using the Serverless Framework deploy on
+AWS Lambda.
 
-The project folder also includes a `template.yml` file. You can use this [SAM](https://github.com/awslabs/serverless-application-model) file to deploy the project to AWS Lambda and Amazon API Gateway or test in local with the [SAM CLI](https://github.com/awslabs/aws-sam-cli). 
+How to run the application:
+1. clone the repository
+2. run mvn clean install
+3. deploy the application using AWS CLI or Serverless Framework OR Upload the Zip file to AWS Lambda, select Java 17
+   as the runtime and set the handler to com.parkhere.configuration.StreamLambdaHandler::handleRequest.
+4. Create DynamoDB tables with the name "ParkingLots" with Partition key as Id and create Indxes "ParkingLotIdIndex"
+   with Partition key as parkingLotId and Sort key as spotId.
+   ParkingLots Table columns:  id (Number), parkingLotId, priority, spotId, spotName
+   ![img_2.png](img_2.png)
+5.  Create 2nd tables with the name "Reservations" with Partition key as reservationId and softkey as parkingLotId
+    and create Indxes "UserIdIndex" with Partition key as userId (String)
+    ParkingLots Table columns:  reservationId (Number), parkingLotId (Number), endTimestamp, sporId, startTimestamp ,
+    parkingLotId,
+    priority,
+    spotId, spotName
+ 
+4. Test the application on AWS Lambda console.
+  
+5. Configure the API Gateway to expose the Lambda function as a REST API. Please refer the below schema for the API 
+   Gateway configuration.
 
-## Pre-requisites
-* [AWS CLI](https://aws.amazon.com/cli/)
-* [SAM CLI](https://github.com/awslabs/aws-sam-cli)
-* [Gradle](https://gradle.org/) or [Maven](https://maven.apache.org/)
+5. CICD Pipeline: you can use Github actions to deploy the applications (two micro services config-service and 
+reservation)
+to AWS Lambda, this process is automated
+and the
+deployment is triggered when a new commit is pushed to the master branch. The repository contains a
+Github actions file for the deployment by using terraform scripts. you can find them in the .github/workflows folder.
+and terraform scripts in the terraform folder.
+Postman collection for the API testing is available in the postman folder.
+screenshots of postman for reference.
+![img_1.png](img_1.png)
+![img.png](img.png)
+6. System design diagram:
+![img_2.png](img_2.png)
 
-## Building the project
-You can use the SAM CLI to quickly build the project
-```bash
-$ mvn archetype:generate -DartifactId=reservation -DarchetypeGroupId=com.amazonaws.serverless.archetypes -DarchetypeArtifactId=aws-serverless-jersey-archetype -DarchetypeVersion=2.1.1 -DgroupId=org.example -Dversion=1.0-SNAPSHOT -Dinteractive=false
-$ cd reservation
-$ sam build
-Building resource 'ReservationFunction'
-Running JavaGradleWorkflow:GradleBuild
-Running JavaGradleWorkflow:CopyArtifacts
-
-Build Succeeded
-
-Built Artifacts  : .aws-sam/build
-Built Template   : .aws-sam/build/template.yaml
-
-Commands you can use next
-=========================
-[*] Invoke Function: sam local invoke
-[*] Deploy: sam deploy --guided
-```
-
-## Testing locally with the SAM CLI
-
-From the project root folder - where the `template.yml` file is located - start the API with the SAM CLI.
-
-```bash
-$ sam local start-api
-
-...
-Mounting com.amazonaws.serverless.archetypes.StreamLambdaHandler::handleRequest (java11) at http://127.0.0.1:3000/{proxy+} [OPTIONS GET HEAD POST PUT DELETE PATCH]
-...
-```
-
-Using a new shell, you can send a test ping request to your API:
-
-```bash
-$ curl -s http://127.0.0.1:3000/ping | python -m json.tool
-
-{
-    "pong": "Hello, World!"
-}
-``` 
-
-## Deploying to AWS
-To deploy the application in your AWS account, you can use the SAM CLI's guided deployment process and follow the instructions on the screen
-
-```
-$ sam deploy --guided
-```
-
-Once the deployment is completed, the SAM CLI will print out the stack's outputs, including the new application URL. You can use `curl` or a web browser to make a call to the URL
-
-```
-...
--------------------------------------------------------------------------------------------------------------
-OutputKey-Description                        OutputValue
--------------------------------------------------------------------------------------------------------------
-ReservationApi - URL for application            https://xxxxxxxxxx.execute-api.us-west-2.amazonaws.com/Prod/pets
--------------------------------------------------------------------------------------------------------------
-```
-
-Copy the `OutputValue` into a browser or use curl to test your first request:
-
-```bash
-$ curl -s https://xxxxxxx.execute-api.us-west-2.amazonaws.com/Prod/ping | python -m json.tool
-
-{
-    "pong": "Hello, World!"
-}
-```
+Please refer to the [Serverless Framework documentation](https://serverless.com/framework/docs/) for more information on how to deploy and manage serverless applications.

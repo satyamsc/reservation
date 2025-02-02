@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "fd61876f-b62b-46b1-946f-df4186e13c91",
+		"name": "Parkhere",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "3085244",
+		"_collection_link": "https://dark-crater-5664.postman.co/workspace/parkhere~8848ef79-6a9d-47e4-a5a3-1cd36b436b12/collection/3085244-fd61876f-b62b-46b1-946f-df4186e13c91?action=share&source=collection_link&creator=3085244"
+	},
+	"item": [
+		{
+			"name": "slots",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://uhhffxfmcb.execute-api.eu-central-1.amazonaws.com/dev/api/parking-lots/0",
+					"protocol": "https",
+					"host": [
+						"uhhffxfmcb",
+						"execute-api",
+						"eu-central-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"api",
+						"parking-lots",
+						"0"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reservations",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"userId\": \"parkhere@dot.com\",\n    \"startTimestamp\": 1706848300,\n    \"endTimestamp\": 1706849800\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://uhhffxfmcb.execute-api.eu-central-1.amazonaws.com/dev/api/parking-lots/0/reservations",
+					"protocol": "https",
+					"host": [
+						"uhhffxfmcb",
+						"execute-api",
+						"eu-central-1",
+						"amazonaws",
+						"com"
+					],
+					"path": [
+						"dev",
+						"api",
+						"parking-lots",
+						"0",
+						"reservations"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

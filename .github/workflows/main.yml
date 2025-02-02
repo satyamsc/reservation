@@ -46,10 +46,3 @@ jobs:
         run: terraform destroy -auto-approve
         continue-on-error: true  # In case no resources exist yet
 
-      - name: Terraform Plan
-        working-directory: ./terraform
-        run: terraform plan
-
-      - name: Terraform Apply
-        working-directory: ./terraform
-        run: terraform apply -auto-approve

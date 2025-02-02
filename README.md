@@ -14,20 +14,20 @@ How to run the application:
 4. Create DynamoDB tables with the name "ParkingLots" with Partition key as Id and create Indxes "ParkingLotIdIndex"
    with Partition key as parkingLotId and Sort key as spotId.
    ParkingLots Table columns:  id (Number), parkingLotId, priority, spotId, spotName
-
 5.  Create 2nd tables with the name "Reservations" with Partition key as reservationId and softkey as parkingLotId
     and create Indxes "UserIdIndex" with Partition key as userId (String)
     ParkingLots Table columns:  reservationId (Number), parkingLotId (Number), endTimestamp, sporId, startTimestamp ,
     parkingLotId,
     priority,
     spotId, spotName
- 
-4. Test the application on AWS Lambda console.
-  
-5. Configure the API Gateway to expose the Lambda function as a REST API. Please refer the below schema for the API 
+6. Test the application on AWS Lambda console.
+7. Once the registration is done, User will get the reservationId in the response as well he receives the email with the 
+   reservation details.
+  ![img_3.png](img_3.png)
+7. Configure the API Gateway to expose the Lambda function as a REST API. Please refer the below schema for the API 
    Gateway configuration.
 
-5. CICD Pipeline: you can use Github actions to deploy the applications (two micro services config-service and 
+8. CICD Pipeline: you can use Github actions to deploy the applications (two micro services config-service and 
 reservation)
 to AWS Lambda, this process is automated
 and the

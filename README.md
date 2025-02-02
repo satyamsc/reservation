@@ -1,7 +1,10 @@
-# config-service serverless API
+# Reservation serverless API
 
 This is a serverless API that provides a reservation service. It is built using the Serverless Framework deploy on
 AWS Lambda.
+
+System design diagram:
+![img_2.png](img_2.png)
 
 How to run the application:
 1. clone the repository
@@ -11,7 +14,7 @@ How to run the application:
 4. Create DynamoDB tables with the name "ParkingLots" with Partition key as Id and create Indxes "ParkingLotIdIndex"
    with Partition key as parkingLotId and Sort key as spotId.
    ParkingLots Table columns:  id (Number), parkingLotId, priority, spotId, spotName
-   ![img_2.png](img_2.png)
+
 5.  Create 2nd tables with the name "Reservations" with Partition key as reservationId and softkey as parkingLotId
     and create Indxes "UserIdIndex" with Partition key as userId (String)
     ParkingLots Table columns:  reservationId (Number), parkingLotId (Number), endTimestamp, sporId, startTimestamp ,
@@ -35,7 +38,6 @@ Postman collection for the API testing is available in the postman folder.
 screenshots of postman for reference.
 ![img_1.png](img_1.png)
 ![img.png](img.png)
-6. System design diagram:
-![img_2.png](img_2.png)
+
 
 Please refer to the [Serverless Framework documentation](https://serverless.com/framework/docs/) for more information on how to deploy and manage serverless applications.
